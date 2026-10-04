@@ -12,6 +12,10 @@ import static java.time.LocalDateTime.now;
 
 public class FormTaskTwoTest {
 
+    public String date() {
+        return now().plusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
     @Test
     public void shouldSendFormWithValidField() {
         String choosenDay = now().plusDays(7).format(DateTimeFormatter.ofPattern("d"));
@@ -31,5 +35,7 @@ public class FormTaskTwoTest {
         $("[data-test-id='agreement'] .checkbox__text").click();
         $$("button").find(Condition.exactText("Забронировать")).click();
         $("[data-test-id='notification']").shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[data-test-id='notification'] .notification__title").shouldBe(Condition.exactText("Успешно!"), Duration.ofSeconds(15));
+        $("[data-test-id='notification'] .notification__content").shouldBe(Condition.exactText("Встреча успешно забронирована на " + date()), Duration.ofSeconds(15));
     }
 }

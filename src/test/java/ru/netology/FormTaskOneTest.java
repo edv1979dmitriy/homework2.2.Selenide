@@ -26,5 +26,7 @@ public class FormTaskOneTest {
         $("[data-test-id='agreement'] .checkbox__text").click();
         $$("button").find(Condition.exactText("Забронировать")).click();
         $("[data-test-id='notification']").shouldBe(Condition.visible, Duration.ofSeconds(15));
+        $("[data-test-id='notification'] .notification__title").shouldBe(Condition.exactText("Успешно!"), Duration.ofSeconds(15));
+        $("[data-test-id='notification'] .notification__content").shouldBe(Condition.exactText("Встреча успешно забронирована на " + date()), Duration.ofSeconds(15));
     }
 }
